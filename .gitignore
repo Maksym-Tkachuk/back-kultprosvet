@@ -1,0 +1,26 @@
+# WorkSace
+node_modules
+build
+dist
+
+# DB
+dump
+
+# IDE files
+.idea
+.vscode
+
+# Env
+.env
+.env.test
+
+# Cache
+tsconfig.tsbuildinfo
+.eslintcache
+
+# Packege manager
+yarn-error.log
+
+.DS_Store
+# Sentry Config File
+.sentryclirc
