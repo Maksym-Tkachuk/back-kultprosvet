@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import { IsEnum, IsNumber, IsOptional, IsString, Min } from 'class-validator'
+
+import { sanitize } from 'src/modules/shared/helpers/sanitize'
 
 import { UserType } from '../../shared/constants/userType'
 
@@ -31,6 +33,7 @@ export class GetTicketsQueryDto {
   userType?: UserType
 
   @ApiProperty({ required: false, description: 'Search tickets by title' })
+  @Transform(({ value }) => sanitize(value))
   @IsString()
   @IsOptional()
   searchTitle?: string
@@ -39,6 +42,7 @@ export class GetTicketsQueryDto {
     required: false,
     description: 'Search tickets by description',
   })
+  @Transform(({ value }) => sanitize(value))
   @IsString()
   @IsOptional()
   searchDescription?: string

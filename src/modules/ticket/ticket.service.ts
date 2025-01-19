@@ -25,6 +25,14 @@ export class TicketService {
 
       let filteredTickets = tickets
 
+      if (cursor) {
+        const startIndex = cursor
+          ? tickets.findIndex(ticket => ticket.id === cursor) + 1
+          : 0
+
+        filteredTickets = filteredTickets.slice(startIndex)
+      }
+
       if (userType) {
         filteredTickets = filteredTickets.filter(
           ticket => ticket.userType === userType,
@@ -45,19 +53,10 @@ export class TicketService {
         )
       }
 
-      const startIndex = cursor
-        ? tickets.findIndex(ticket => ticket.id === cursor) + 1
-        : 0
-
-      const paginatedTickets = filteredTickets.slice(
-        startIndex,
-        startIndex + limit,
-      )
+      const paginatedTickets = filteredTickets.slice(0, 10)
 
       const nextCursor =
-        startIndex + limit < filteredTickets.length
-          ? filteredTickets[startIndex + limit]?.id || null
-          : null
+        limit > paginatedTickets.length ? null : paginatedTickets?.at(-1).id
 
       return { tickets: paginatedTickets, nextCursor }
     } catch (error) {
