@@ -7,6 +7,8 @@ import {
 import type { GetTicketsQueryDto } from './dtos/get-tickets-query.dto'
 import type { GetTicketsResponseDto } from './dtos/get-tickets-response.dto'
 
+import { filterByRegex } from '../shared/helpers/filter-by-regex'
+
 import { tickets } from './mock/tickets'
 
 @Injectable()
@@ -23,7 +25,7 @@ export class TicketService {
         searchDescription,
       } = query
 
-      let filteredTickets = tickets
+      let filteredTickets = [...tickets]
 
       if (cursor) {
         const startIndex = cursor
@@ -40,16 +42,14 @@ export class TicketService {
       }
 
       if (searchTitle) {
-        const regex = new RegExp(searchTitle, 'i')
-        filteredTickets = filteredTickets.filter(ticket =>
-          regex.test(ticket.title),
-        )
+        filteredTickets = filterByRegex(filteredTickets, 'title', searchTitle)
       }
 
       if (searchDescription) {
-        const regex = new RegExp(searchDescription, 'i')
-        filteredTickets = filteredTickets.filter(ticket =>
-          regex.test(ticket.description),
+        filteredTickets = filterByRegex(
+          filteredTickets,
+          'description',
+          searchDescription,
         )
       }
 
