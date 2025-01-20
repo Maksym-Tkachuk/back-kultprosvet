@@ -37,8 +37,8 @@ async function bootstrap(): Promise<void> {
   )
 
   const swagger = new DocumentBuilder()
-    .setTitle('Faktastisch API')
-    .setVersion('2.0')
+    .setTitle('Kultprosvet API')
+    .setVersion('1.0')
     .addBearerAuth()
     .build()
 

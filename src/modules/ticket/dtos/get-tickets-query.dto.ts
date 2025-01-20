@@ -2,9 +2,8 @@ import { ApiProperty } from '@nestjs/swagger'
 import { Transform, Type } from 'class-transformer'
 import { IsEnum, IsNumber, IsOptional, IsString, Min } from 'class-validator'
 
-import { sanitize } from 'src/modules/shared/helpers/sanitize'
-
 import { UserType } from '../../shared/constants/userType'
+import { sanitize } from '../../shared/helpers/sanitize'
 
 export class GetTicketsQueryDto {
   @ApiProperty({ required: false, description: 'Cursor for pagination' })

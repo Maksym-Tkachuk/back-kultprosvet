@@ -53,7 +53,7 @@ export class TicketService {
         )
       }
 
-      const paginatedTickets = filteredTickets.slice(0, 10)
+      const paginatedTickets = filteredTickets.slice(0, limit)
 
       const nextCursor =
         limit > paginatedTickets.length ? null : paginatedTickets?.at(-1).id
